@@ -528,7 +528,7 @@ var Toast = Swal.mixin({
 
 $(document).ready(function() {
 
-  //fnc_CargarDataTableProductos();
+ // fnc_CargarDataTableProductos();
 
   $.ajax({
     type: "POST",
