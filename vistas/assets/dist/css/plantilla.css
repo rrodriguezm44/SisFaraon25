@@ -1,0 +1,80 @@
+table.dataTable tbody td {
+  white-space: nowrap !important;
+  font-size: 13px !important;
+}
+
+#tbl_productos thead th {
+  white-space: nowrap !important;
+  font-size: 14px !important;
+}
+
+.transparentbar {
+  background-repeat: no-repeat;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  background-image: none;
+  background-color: transparent;
+}
+
+#tblDetalleVenta_lenght,
+#tblDetalleVenta_filter {
+  display: none !important;
+}
+
+button.tabledit-save-button.btn.btn-sm.btn-success {
+  font-size: 0 !important;
+}
+button.tabledit-save-button.btn.btn-sm.btn-success:before {
+  font-size: 12px !important;
+  content: "Guardar";
+}
+button.btn.btn-danger.btn-sm.tabledit-confirm-button {
+  font-size: 0 !important;
+}
+button.btn.btn-danger.btn-sm.tabledit-confirm-button:before {
+  font-size: 12px !important;
+  content: "Confirmar";
+}
+.btn-toolbar {
+  flex-wrap: nowrap !important;
+}
+button.tabledit-save-button.btn.btn-sm.btn-success {
+  margin: 0 5px !important;
+}
+button.btn.btn-danger.btn-sm.tabledit-confirm-button {
+  margin: 0 5px !important;
+}
+
+/* .btn {
+  border-radius: 50rem !important;
+} */
+
+/* .dt-button {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+} */
+
+.select2-container--default .select2-selection--single {
+  height: calc(3.5rem + 2px) !important;
+  border: 1px solid gray !important;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  margin-top: 15px !important;
+}
+
+.select2-container--default.select2-container--focus
+  .select2-selection--multiple,
+.select2-container--default.select2-container--focus
+  .select2-selection--single {
+  border: 1px solid gray !important;
+}
+
+select[readonly].select2 + .select2-container {
+  pointer-events: none;
+  touch-action: none;
+}

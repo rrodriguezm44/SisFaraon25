@@ -528,222 +528,18 @@ var Toast = Swal.mixin({
 
 $(document).ready(function() {
 
- // fnc_CargarDataTableProductos();
+  fnc_CargarListaProductos();
 
-  $.ajax({
-    type: "POST",
-    url: "ajax/productos.ajax.php",
-    data: {
-      'accion': 1
-    }, //lista productos
-    dataType: "json",
-    success: function(response) {
-      console.log(response);
-    }
-  });
+  fnc_SelectCategorias();
 
-  //solicitud ajax para cargar select de categorias
-  $.ajax({
-    url: "ajax/categorias.ajax.php",
-    cache: false,
-    contentType: false,
-    processData: false,
-    dataType: "json",
-    success: function(response) {
+  fnc_SelectProveedores();
 
-      let options = "<option selected value='0'>Seleccionar una categoria</option>";
+  $('.select2').select2()
 
-      for (let index = 0; index < response.length; index++) {
-        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
-      }
+  fnc_SelectSubCategorias();
+  
+  fnc_CargarDataTableProductos();
 
-      $("#id_categoria").html(options);
-
-    }
-  });
-
-  //SOLICITU DE PARA CARGAR PROVEEDOR
-  $.ajax({
-    url: "ajax/proveedores.ajax.php",
-    cache: false,
-    contentType: false,
-    processData: false,
-    dataType: "json",
-    success: function(response) {
-
-      let options = "<option selected value='0'>Seleccionar Proveedor</option>";
-
-      for (let index = 0; index < response.length; index++) {
-        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
-      }
-
-      $("#id_proveedor").html(options);
-
-    }
-  });
-
-  //SOLICITUDE PARA CARGAR SUBCATEGORIAS
-  $("#id_categoria").change(function() {
-
-    let categoriaId = $(this).val();
-    //alert(id_categoria);
-    if (categoriaId) {
-      // Habilitar y limpiar subcategorías
-      $('#id_subcategoria').empty().append('<option value="">Cargando...</option>').prop('disabled', false);
-
-      // Solicitud AJAX
-      $.ajax({
-        url: 'ajax/get_subcategories.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          categoria_id: categoriaId
-        },
-        success: function(data) {
-          $('#id_subcategoria').empty();
-          if (data.length > 0) {
-            $('#id_subcategoria').append('<option value="">Seleccione una subcategoría</option>');
-            $.each(data, function(key, value) {
-              $('#id_subcategoria').append('<option value="' + value.subcategoria_id + '">' + value
-                .nombre +
-                '</option>');
-            });
-          } else {
-            $('#id_subcategoria').append('<option value="">No hay subcategorías disponibles</option>');
-          }
-        },
-        error: function() {
-          $('#id_subcategoria').empty().append('<option value="">Error al cargar subcategorías</option>');
-        }
-      });
-    } else {
-      $('#id_subcategoria').empty().append('<option value="">Primero seleccione una categoría</option>').prop(
-        'disabled', true);
-    }
-
-  })
-
-
-
-  //CARGA DE LISTADO DE PRODUCTOS
-
-  table = $('#tbl_productos').DataTable({
-    dom: 'Bfrtip',
-    buttons: [
-
-      {
-        text: '<i class="fas fa-sync-alt"></i>',
-        className: 'bg-secondary',
-        action: function(e, dt, node, config) {
-          fnc_CargarDataTableProductos();
-        }
-      },
-      {
-        text: 'Agregar Producto',
-        className: 'btn btn-success',
-        action: function(e, dt, node, config) {
-          $("#mdlGestionarProducto").modal('show');
-          accion = 2; //registrar producto
-        }
-      },
-      'excel', 'pdf', 'print', 'pageLength'
-    ],
-    ajax: {
-      url: "ajax/productos.ajax.php",
-      dataSrc: '',
-      type: "POST",
-      data: {
-        'accion': 1
-      },
-    },
-    responsive: {
-      details: {
-        type: 'column'
-      }
-    },
-    columnDefs: [{
-        targets: 0,
-        orderable: false,
-        className: 'control'
-      },
-      {
-        targets: 1,
-        visible: false
-      },
-      {
-        targets: 12,
-        visible: false
-      },
-      {
-        targets: 13,
-        visible: false
-      },
-      {
-        targets: 14,
-        visible: false
-      },
-      {
-        targets: 15,
-        visible: false
-      },
-      {
-        targets: 16,
-        visible: false
-      },
-      {
-        targets: 17,
-        visible: false
-      },
-      {
-        targets: 18,
-        visible: false
-      },
-      {
-        targets: 11,
-        orderable: false,
-        render: function(data, type, full, meta) {
-          return "<center>" +
-            "<span id='btnEditarProducto' class='text-primary px-1' style='cursor:pointer;'>" +
-            "<i class='fas fa-pencil-alt fs-5'></i>" +
-            "</span>" +
-            "<span class='btnAumentarStock text-success px-1' style='cursor:pointer;'>" +
-            "<i class='fas fa-plus-circle fs-5'></i>" +
-            "</span>" +
-            //"<span class='btnDisminuirStock text-warning px-1' style='cursor:pointer;'>" +
-            //"<i class='fas fa-minus-circle fs-5'></i>" +
-            //"</span>" +
-            "<span class='btnEliminarProducto text-danger px-1' style='cursor:pointer;'>" +
-            "<i class='fas fa-trash fs-5'></i>" +
-            "</span>" +
-            "</center>"
-        }
-      }
-    ],
-    language: {
-      "sProcessing": "Procesando...",
-      "sLengthMenu": "Mostrar _MENU_ registros",
-      "sZeroRecords": "No se encontraron resultados",
-      "sEmptyTable": "Ningún dato disponible en esta tabla",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "sInfoPostFix": "",
-      "sSearch": "Buscar:",
-      "sUrl": "",
-      "sInfoThousands": ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-        "sFirst": "Primero",
-        "sLast": "Último",
-        "sNext": "Siguiente",
-        "sPrevious": "Anterior"
-      },
-      "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
-    }
-  });
 
 
   //EVENTOS PARA CRITERIOS DE BUSQUEDA 
@@ -1027,6 +823,231 @@ $(document).ready(function() {
 
 }) //final READY
 
+//CARGADO DE FUNCIONES
+
+function fnc_CargarListaProductos(){
+    $.ajax({
+    type: "POST",
+    url: "ajax/productos.ajax.php",
+    data: {
+      'accion': 1
+    }, //lista productos
+    dataType: "json",
+    success: function(response) {
+      console.log(response);
+    }
+  });
+}
+
+function fnc_SelectCategorias() {
+  //SOLICITU DE PARA CARGAR CATEGORIA
+  $.ajax({
+    url: "ajax/categorias.ajax.php",
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function(response) {
+
+      let options = "<option selected value='0'>Seleccionar una categoria</option>";
+
+      for (let index = 0; index < response.length; index++) {
+        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
+      }
+
+      $("#id_categoria").html(options);
+
+    }
+  });
+}
+
+
+function fnc_SelectProveedores() {
+    //SOLICITU DE PARA CARGAR PROVEEDOR
+  $.ajax({
+    url: "ajax/proveedores.ajax.php",
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function(response) {
+
+      let options = "<option selected value='0'>Seleccionar Proveedor</option>";
+
+      for (let index = 0; index < response.length; index++) {
+        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
+      }
+
+      $("#id_proveedor").html(options);
+
+    }
+  });
+}
+
+function fnc_SelectSubCategorias() {
+//SOLICITUDE PARA CARGAR SUBCATEGORIAS
+  $("#id_categoria").change(function() {
+
+    let categoriaId = $(this).val();
+    //alert(id_categoria);
+    if (categoriaId) {
+      // Habilitar y limpiar subcategorías
+      $('#id_subcategoria').empty().append('<option value="">Cargando...</option>').prop('disabled', false);
+
+      // Solicitud AJAX
+      $.ajax({
+        url: 'ajax/get_subcategories.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          categoria_id: categoriaId
+        },
+        success: function(data) {
+          $('#id_subcategoria').empty();
+          if (data.length > 0) {
+            $('#id_subcategoria').append('<option value="">Seleccione una subcategoría</option>');
+            $.each(data, function(key, value) {
+              $('#id_subcategoria').append('<option value="' + value.subcategoria_id + '">' + value
+                .nombre +
+                '</option>');
+            });
+          } else {
+            $('#id_subcategoria').append('<option value="">No hay subcategorías disponibles</option>');
+          }
+        },
+        error: function() {
+          $('#id_subcategoria').empty().append('<option value="">Error al cargar subcategorías</option>');
+        }
+      });
+    } else {
+      $('#id_subcategoria').empty().append('<option value="">Primero seleccione una categoría</option>').prop(
+        'disabled', true);
+    }
+
+  })
+}
+
+function fnc_CargarDataTableProductos() {
+    //CARGA DE LISTADO DE PRODUCTOS
+
+  table = $('#tbl_productos').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+
+      {
+        text: '<i class="fas fa-sync-alt"></i>',
+        className: 'bg-secondary',
+        action: function(e, dt, node, config) {
+          fnc_CargarDataTableProductos();
+        }
+      },
+      {
+        text: 'Agregar Producto',
+        className: 'btn btn-success',
+        action: function(e, dt, node, config) {
+          $("#mdlGestionarProducto").modal('show');
+          accion = 2; //registrar producto
+        }
+      },
+      'excel', 'pdf', 'print', 'pageLength'
+    ],
+    ajax: {
+      url: "ajax/productos.ajax.php",
+      dataSrc: '',
+      type: "POST",
+      data: {
+        'accion': 1
+      },
+    },
+    responsive: {
+      details: {
+        type: 'column'
+      }
+    },
+    columnDefs: [{
+        targets: 0,
+        orderable: false,
+        className: 'control'
+      },
+      {
+        targets: 1,
+        visible: false
+      },
+      {
+        targets: 12,
+        visible: false
+      },
+      {
+        targets: 13,
+        visible: false
+      },
+      {
+        targets: 14,
+        visible: false
+      },
+      {
+        targets: 15,
+        visible: false
+      },
+      {
+        targets: 16,
+        visible: false
+      },
+      {
+        targets: 17,
+        visible: false
+      },
+      {
+        targets: 18,
+        visible: false
+      },
+      {
+        targets: 11,
+        orderable: false,
+        render: function(data, type, full, meta) {
+          return "<center>" +
+            "<span id='btnEditarProducto' class='text-primary px-1' style='cursor:pointer;'>" +
+            "<i class='fas fa-pencil-alt fs-5'></i>" +
+            "</span>" +
+            "<span class='btnAumentarStock text-success px-1' style='cursor:pointer;'>" +
+            "<i class='fas fa-plus-circle fs-5'></i>" +
+            "</span>" +
+            //"<span class='btnDisminuirStock text-warning px-1' style='cursor:pointer;'>" +
+            //"<i class='fas fa-minus-circle fs-5'></i>" +
+            //"</span>" +
+            "<span class='btnEliminarProducto text-danger px-1' style='cursor:pointer;'>" +
+            "<i class='fas fa-trash fs-5'></i>" +
+            "</span>" +
+            "</center>"
+        }
+      }
+    ],
+    language: {
+      "sProcessing": "Procesando...",
+      "sLengthMenu": "Mostrar _MENU_ registros",
+      "sZeroRecords": "No se encontraron resultados",
+      "sEmptyTable": "Ningún dato disponible en esta tabla",
+      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "sInfoPostFix": "",
+      "sSearch": "Buscar:",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Cargando...",
+      "oPaginate": {
+        "sFirst": "Primero",
+        "sLast": "Último",
+        "sNext": "Siguiente",
+        "sPrevious": "Anterior"
+      },
+      "oAria": {
+        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+      }
+    }
+  });
+}
 
 //function fnc_CargarDataTableProductos() {
 
