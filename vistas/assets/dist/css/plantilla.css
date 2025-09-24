@@ -1,9 +1,18 @@
+[class*="sidebar-dark-"] {
+  background-color: #17202a !important;
+}
+
 table.dataTable tbody td {
   white-space: nowrap !important;
   font-size: 13px !important;
 }
 
 #tbl_productos thead th {
+  white-space: nowrap !important;
+  font-size: 14px !important;
+}
+
+#tbl_inventario thead th {
   white-space: nowrap !important;
   font-size: 14px !important;
 }
@@ -17,6 +26,66 @@ table.dataTable tbody td {
   background-image: none;
   background-color: transparent;
 }
+
+/*lo nuevo del otro css*/
+
+.btn-check:focus + .btn-primary,
+.btn-primary:focus {
+  color: #fff;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.transparentbar:hover {
+  color: #fff;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+div.dataTables_wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card-gray {
+  border: 1px solid gray;
+}
+
+.card-header {
+  border-bottom: 1px solid gray;
+}
+
+.card-gray:not(.card-outline) > .card-header {
+  background-color: #34495e !important;
+}
+
+
+.small-box {
+  border: 1px solid gray !important;
+}
+
+.card-header {
+  padding: 0.4rem 1.25rem !important;
+}
+
+.form-control,
+select {
+  border: 1px solid gray !important;
+}
+
+.input-group > .input-group-append > .btn,
+.input-group > .input-group-append > .input-group-text,
+.input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+.input-group
+  > .input-group-prepend:first-child
+  > .input-group-text:not(:first-child),
+.input-group > .input-group-prepend:not(:first-child) > .btn,
+.input-group > .input-group-prepend:not(:first-child) > .input-group-text {
+  border: 1px solid gray !important;
+}
+
+/*--------------*/
 
 #tblDetalleVenta_lenght,
 #tblDetalleVenta_filter {
