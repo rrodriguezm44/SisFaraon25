@@ -148,8 +148,6 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
           <!-- Abrimos una fila -->
           <div class="row">
 
-            <input type="hidden" name="impuesto_producto" id="impuesto_producto">
-
             <!-- CODIGO DE BARRAS -->
             <div class="col-12 col-lg-6">
 
@@ -157,9 +155,11 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
                 <input type="text" id="codigo_producto" class="form-control"
                   onchange="validateJS(event, 'codigo_producto')" name="codigo_producto" required>
-                <label for="codigo_producto">Código de Barras</label>
+                
+                  <label for="codigo_producto"><i class="fas fa-barcode fs-6"></i><span class="small"> Código del
+                    Producto</span><span class="text-danger">*</span></label>
 
-                <div class="invalid-feedback">Ingrese el codigo del Producto</div>
+                <div class="invalid-feedback">Ingrese el código del Producto</div>
 
               </div>
 
@@ -170,10 +170,12 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               <div class="form-floating mb-2">
 
-                <select class="form-select select2" id="id_categoria" name="id_categoria"
-                  aria-label="Floating label select example" required>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="id_categoria"
+                  name="id_categoria" placeholder="categoria" required>
                 </select>
-                <label for="id_categoria">Categorías</label>
+
+                <label for="id_categoria"><i class="fas fa-columns fs-6"></i><span class="small"> Categoria</span><span
+                    class="text-danger">*</span></label>
 
                 <div class="invalid-feedback">Seleccione la categoría</div>
 
@@ -181,13 +183,46 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
             </div>
 
+
+            <!-- SUB-CATEGORIAS -->
+            <div class="col-12 col-lg-6">
+
+              <div class="form-floating mb-2">
+
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="id_subcategoria"
+                  name="id_subcategoria" aria-label="Floating label select example" required>
+                </select>
+                <label for="id_subcategoria"><i class="fas fa-clone fs-6"></i><span class="small">
+                    Sub-Categoria</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Seleccione la Sub Categoría</div>
+
+              </div>
+
+            </div>
+
+            <!-- DOCUMENTO COMPRA-->
+            <div class="col-12 col-lg-6">
+
+              <div class="form-floating mb-2">
+
+                <input type="text" id="doc_producto" class="form-control" name="doc_producto" placeholder="Documento">
+                <label for="doc_producto"><i class="fas fa-book fs-6"></i><span class="small"> Documento
+                    Compra</span></label>
+                <!-- <div class="invalid-feedback">Ingrese el codigo del Producto</div> -->
+
+              </div>
+
+            </div>
+
             <!-- DESCRIPCION DEL PRODUCTO -->
-            <div class="col-12">
+            <div class="col-8">
 
               <div class="form-floating mb-2">
 
                 <input type="text" class="form-control text-uppercase" id="descripcion" name="descripcion" required>
-                <label for="descripcion">Descripción</label>
+                <label for="descripcion"><i class="fas fa-file-signature fs-6"></i><span class="small">
+                    Descripcion</span><span class="text-danger">*</span></label>
 
                 <div class="invalid-feedback">Ingrese la descripción</div>
 
@@ -195,158 +230,143 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
             </div>
 
-            <!-- TIPO AFECTACIÓN -->
-            <div class="col-12 col-lg-6">
-
-              <div class="form-floating mb-2">
-
-                <select class="form-select select2" id="id_tipo_afectacion_igv" name="id_tipo_afectacion_igv"
-                  aria-label="Floating label select example" required>
-                </select>
-                <label for="id_tipo_afectacion_igv">Tipo Afectación</label>
-
-                <div class="invalid-feedback">Seleccione el Tipo de Afectación</div>
-
-              </div>
-
-            </div>
-
-            <!-- IMPUESTO -->
-            <div class="col-12 col-lg-2">
-              <div class="form-floating mb-2">
-                <input type="text" class="form-control form-control-sm" id="impuesto" name="impuesto" readonly>
-                <label for="impuesto">IGV (%) </label>
-              </div>
-            </div>
-
-            <!-- UNIDAD MEDIDA -->
+            <!-- PRECIO DE COMPRA -->
             <div class="col-12 col-lg-4">
 
               <div class="form-floating mb-2">
 
-                <select class="form-select select2" id="id_unidad_medida" name="id_unidad_medida"
-                  aria-label="Floating label select example" required>
+                <input type="number" step="any" min="0" id="precio_compra" class="form-control" name="precio_compra"
+                  required>
+                <label for="precio_compra"><i class="fas fa-hand-holding-usd fs-6"></i><span class="small"> Precio de
+                    Compra</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Registre Precio de Compra</div>
+
+              </div>
+
+            </div>
+            <!-- PORCENTAJE DE CALCULO -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" min="0" id="porciento" class="form-control" name="porciento"
+                  placeholder="Porcentaje de Calculo">
+                <label for="porciento"><i class="fas fa-coins fs-6"></i><span class="small"> Porciento
+                    Calculo</span></label>
+
+              </div>
+
+            </div>
+
+            <!-- PRECIO DE VENTA -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" step="any" min="0" id="precio_venta" class="form-control" name="precio_venta"
+                  placeholder="Precio de Venta" required>
+                <label for="precio_venta"><i class="fas fa-dollar-sign fs-6"></i><span class="small"> Precio de
+                    Venta</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Ingrese el Precio de Venta</div>
+
+              </div>
+
+            </div>
+            <!-- PRECIO DE FERIA -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" step="any" min="0" id="precio_feria" class="form-control" name="precio_feria"
+                  placeholder="Precio de Feria" required>
+                <label for="precio_feria"><i class="fas fa-comment-dollar fs-6"></i><span class="small"> Precio de
+                    Feria</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Ingrese el Precio de Feria</div>
+
+              </div>
+
+            </div>
+            <!-- PRECIO DE OFERTA -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" step="any" min="0" id="precio_oferta" class="form-control" name="precio_oferta"
+                  placeholder="Precio de Oferta" required>
+                <label for="precio_Oferta"><i class="fas fa-piggy-bank fs-6"></i><span class="small"> Precio de
+                    Oferta</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Ingrese el Precio de Oferta</div>
+
+              </div>
+
+            </div>
+
+            <!-- DESCUENTO -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" min="0" id="descuento_producto" class="form-control" name="descuento_producto"
+                  placeholder="Descuento General" required>
+                <label for="descuento_producto"><i class="fas fa-donate fs-6"></i><span class="small"> Descuento
+                    General</span><span class="text-danger">*</span></label>
+                <span id="validate_descuento" style="display: none;" class="text-danger small fst-italic">Debe Ingresar
+                  el Descuento General</span>
+                <div class="invalid-feedback">Registre Descuento</div>
+
+              </div>
+
+            </div>
+            <!-- STOCK -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="number" min="0" id="stock_producto" class="form-control" name="stock_producto"
+                  placeholder="Cantidad Comprada" required>
+                <label for="stock_producto"><i class="fas fa-layer-group fs-6"></i><span class="small"> Nuevo
+                    Stock</span><span class="text-danger">*</span></label>
+
+                <div class="invalid-feedback">Registre Stock</div>
+
+              </div>
+
+            </div>
+            <!-- UNIDAD MEDIDA -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <input type="text" id="id_unidad_medida" class="form-control" name="id_unidad_medida"
+                  placeholder="Unidad de Medida">
+                <label for="id_unidad_medida"><i class="fas fa-eye-dropper fs-6"></i><span
+                    class="small">Unidad/Medida</span></label>
+
+                <!-- <div class="invalid-feedback">Seleccione la Unidad de Medida</div> -->
+
+              </div>
+
+            </div>
+            <!-- PROVEEDOR -->
+            <div class="col-12 col-lg-3">
+
+              <div class="form-floating mb-2">
+
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="id_proveedor"
+                  name="id_proveedor" required>
                 </select>
-                <label for="id_unidad_medida">Unidad/Medida</label>
+                <label for="id_proveedor"><i class="fas fa-truck-moving fs-6"></i><span class="small">
+                    Proveedor</span><span class="text-danger">*</span></label>
 
-                <div class="invalid-feedback">Seleccione la Unidad de Medida</div>
-
-              </div>
-
-            </div>
-
-
-            <!-- IMAGEN -->
-            <div class="col-12">
-              <div class="form-group mb-2">
-                <input type="file" class="form-control form-control-sm" id="imagen" name="imagen" accept="image/*"
-                  onchange="previewFile(this)">
-              </div>
-            </div>
-
-            <!-- PREVIEW IMAGEN -->
-            <div class="col-12 col-lg-5">
-              <div style="width: 100%; height: 255px;">
-                <img id="previewImg" src="vistas/assets/imagenes/no_image.jpg" class="border border-secondary"
-                  style="object-fit: fill; width: 100%; height: 100%;" alt="">
-              </div>
-            </div>
-
-            <div class="col-lg-7">
-
-              <div class="row">
-
-                <!-- PRECIO DE VENTA (INC. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" class="form-control form-control-sm" id="precio_unitario_con_igv"
-                      name="precio_unitario_con_igv" step="0.01" required>
-                    <label for="precio_unitario_con_igv">Precio (con IGV)</label>
-                    <div class="invalid-feedback">Ingrese el Precio del Producto</div>
-                  </div>
-
-                </div>
-
-                <!-- PRECIO DE VENTA (SIN. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" value="0" class="form-control form-control-sm"
-                      id="precio_unitario_sin_igv" name="precio_unitario_sin_igv" step="0.01" readonly>
-                    <label for="precio_unitario_sin_igv">Precio (sin IGV)</label>
-                  </div>
-
-                </div>
-
-                <!-- PRECIO DE VENTA x MAYOR (INC. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" class="form-control form-control-sm" id="precio_unitario_mayor_con_igv"
-                      name="precio_unitario_mayor_con_igv" step="0.01">
-                    <label for="precio_unitario_mayor_con_igv">Precio x Mayor (con IGV)</label>
-
-                  </div>
-
-                </div>
-
-                <!-- PRECIO DE VENTA x MAYOR (SIN. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" value="0" class="form-control form-control-sm"
-                      id="precio_unitario_mayor_sin_igv" name="precio_unitario_mayor_sin_igv" step="0.01" readonly>
-                    <label for="precio_unitario_mayor_sin_igv">Precio x Mayor (sin IGV)</label>
-
-                  </div>
-
-                </div>
-
-                <!-- PRECIO VENTA EN OFERTA (INC. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" class="form-control form-control-sm"
-                      id="precio_unitario_oferta_con_igv" name="precio_unitario_oferta_con_igv" step="0.01">
-                    <label for="precio_unitario_oferta_con_igv">Precio Oferta (con IGV)</label>
-
-                  </div>
-
-                </div>
-
-                <!-- PRECIO VENTA EN OFERTA (SIN. IGV) -->
-                <div class="col-12 col-lg-6">
-
-                  <div class="form-floating mb-2">
-
-                    <input type="number" min="0" class="form-control form-control-sm"
-                      id="precio_unitario_oferta_sin_igv" name="precio_unitario_oferta_sin_igv" value="0" step="0.01"
-                      readonly>
-                    <label for="precio_unitario_oferta_sin_igv">Precio Oferta (sin IGV)</label>
-
-                  </div>
-
-                </div>
-
-                <!-- MINIMO STOCK -->
-                <div class="col-12 col-lg-12">
-                  <div class="form-floating mb-2">
-                    <input type="number" min="0" class="form-control form-control-sm" id="minimo_stock"
-                      name="minimo_stock">
-                    <label for="minimo_stock">Mínimo Stock</label>
-                  </div>
-                </div>
+                <!-- <div class="invalid-feedback">Seleccione la categoría</div> -->
 
               </div>
 
             </div>
-
             <!-- BOTONERA -->
             <div class="col-12 text-right">
               <!-- <a type="button" class="btn btn-outline-danger mt-1 mx-1" style="width:170px;" data-bs-dismiss="modal" id="btnCancelarRegistro">Cancelar</a>
@@ -366,6 +386,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
                 </span>
               </a>
             </div>
+
 
           </div>
 
@@ -441,6 +462,13 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
 var accion;
 var operacion_stock = ''; // permitar definir si vamos a sumar o restar al stock (1: sumar, 2:restar)
 
+// var Toast = Swal.mixin({
+//   toast: true,
+//   position: 'top',
+//   showConfirmButton: false,
+//   timer: 3000
+// });
+
 $(document).ready(function() {
 
   $('#iptFechaIngresoFE').datetimepicker({
@@ -457,9 +485,12 @@ $(document).ready(function() {
 
   //Initialize Select2 Elements
 
-  fnc_cargarSelectCategorias();
+  fnc_SelectCategorias();
+  fnc_SelectSubCategorias();
+  fnc_SelectProveedores();
   fnc_CargarDataTableInventario();
   $('.select2').select2()
+
   /*===================================================================*/
   // C R I T E R I O S   D E   B U S Q U E D A  (CODIGO, CATEGORIA Y PRODUCTO)
   /*===================================================================*/
@@ -543,86 +574,85 @@ $(document).ready(function() {
     fnc_limpiarFormulario();
   })
 
-  $("#precio_unitario_con_igv").on("keyup", function() {
+  // $("#precio_unitario_con_igv").on("keyup", function() {
 
-    if ($("#impuesto").val() == '') {
-      mensajeToast('warning', 'Seleccione el Tipo de Afectación')
-      $("#precio_unitario_con_igv").val('')
-      return;
-    }
+  //   if ($("#impuesto").val() == '') {
+  //     mensajeToast('warning', 'Seleccione el Tipo de Afectación')
+  //     $("#precio_unitario_con_igv").val('')
+  //     return;
+  //   }
 
-    precio_unitario_con_igv = parseFloat($("#precio_unitario_con_igv").val());
-    precio_unitario_sin_igv = parseFloat(precio_unitario_con_igv / (1 + ($("#impuesto_producto").val() / 100)))
-      .toFixed(2);
-    $("#precio_unitario_sin_igv").val(precio_unitario_sin_igv)
+    // precio_unitario_con_igv = parseFloat($("#precio_unitario_con_igv").val());
+    // precio_unitario_sin_igv = parseFloat(precio_unitario_con_igv / (1 + ($("#impuesto_producto").val() / 100)))
+    //   .toFixed(2);
+    // $("#precio_unitario_sin_igv").val(precio_unitario_sin_igv)
+  //});
+
+  // $("#precio_unitario_mayor_con_igv").on("keyup", function() {
+
+  //   if ($("#impuesto").val() == '') {
+  //     mensajeToast('warning', 'Seleccione el Tipo de Afectación')
+  //     $("#precio_unitario_con_igv").val('')
+  //     return;
+  //   }
+
+  //   precio_unitario_mayor_con_igv = parseFloat($("#precio_unitario_mayor_con_igv").val());
+  //   precio_unitario_mayor_sin_igv = parseFloat(precio_unitario_mayor_con_igv / (1 + ($("#impuesto_producto")
+  //     .val() / 100))).toFixed(2);
+  //   $("#precio_unitario_mayor_sin_igv").val(precio_unitario_mayor_sin_igv)
+  // });
+
+  // $("#precio_unitario_oferta_con_igv").on("keyup", function() {
+
+  //   if ($("#impuesto").val() == '') {
+  //     mensajeToast('warning', 'Seleccione el Tipo de Afectación')
+  //     $("#precio_unitario_con_igv").val('')
+  //     return;
+  //   }
+
+  //   precio_unitario_oferta_con_igv = parseFloat($("#precio_unitario_oferta_con_igv").val());
+  //   precio_unitario_oferta_sin_igv = parseFloat(precio_unitario_oferta_con_igv / (1 + ($("#impuesto_producto")
+  //     .val() / 100))).toFixed(2);
+  //   $("#precio_unitario_oferta_sin_igv").val(precio_unitario_oferta_sin_igv)
+  // });
+
+  // $('#id_tipo_afectacion_igv').on('select2:select', function(e) {
+
+  //   $("#impuesto").val('');
+  //   $("#impuesto_producto").val('');
+
+  //   var formData = new FormData();
+  //   formData.append('accion', 'obtener_impuesto_tipo_operacion')
+  //   formData.append('id_tipo_afectacion', $('#id_tipo_afectacion_igv').val());
+  //   response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
+
+  //   if (response) {
+  //     $("#impuesto").val(response['impuesto'])
+  //     $("#impuesto_producto").val(response['impuesto']);
+
+  //     precio_unitario_sin_igv = parseFloat($("#precio_unitario_con_igv").val() / (1 + ($("#impuesto_producto")
+  //       .val() / 100))).toFixed(2);
+  //     $("#precio_unitario_sin_igv").val(precio_unitario_sin_igv);
+
+
+  //     precio_unitario_mayor_sin_igv = parseFloat($("#precio_unitario_mayor_con_igv").val() / (1 + ($(
+  //       "#impuesto_producto").val() / 100))).toFixed(2);
+  //     $("#precio_unitario_mayor_sin_igv").val(precio_unitario_mayor_sin_igv);
+
+  //     precio_unitario_oferta_sin_igv = parseFloat($("#precio_unitario_oferta_con_igv").val() / (1 + ($(
+  //       "#impuesto_producto").val() / 100))).toFixed(2);
+  //     $("#precio_unitario_oferta_sin_igv").val(precio_unitario_oferta_sin_igv);
+  //   }
+
+  // });
+
+  $("#precio_compra, #porciento").keyup(function() {
+    calcularPrecioVenta();
   });
 
-  $("#precio_unitario_mayor_con_igv").on("keyup", function() {
-
-    if ($("#impuesto").val() == '') {
-      mensajeToast('warning', 'Seleccione el Tipo de Afectación')
-      $("#precio_unitario_con_igv").val('')
-      return;
-    }
-
-    precio_unitario_mayor_con_igv = parseFloat($("#precio_unitario_mayor_con_igv").val());
-    precio_unitario_mayor_sin_igv = parseFloat(precio_unitario_mayor_con_igv / (1 + ($("#impuesto_producto")
-      .val() / 100))).toFixed(2);
-    $("#precio_unitario_mayor_sin_igv").val(precio_unitario_mayor_sin_igv)
+  $("#precio_compra, #porciento").change(function() {
+    calcularPrecioVenta();
   });
-
-  $("#precio_unitario_oferta_con_igv").on("keyup", function() {
-
-    if ($("#impuesto").val() == '') {
-      mensajeToast('warning', 'Seleccione el Tipo de Afectación')
-      $("#precio_unitario_con_igv").val('')
-      return;
-    }
-
-    precio_unitario_oferta_con_igv = parseFloat($("#precio_unitario_oferta_con_igv").val());
-    precio_unitario_oferta_sin_igv = parseFloat(precio_unitario_oferta_con_igv / (1 + ($("#impuesto_producto")
-      .val() / 100))).toFixed(2);
-    $("#precio_unitario_oferta_sin_igv").val(precio_unitario_oferta_sin_igv)
-  });
-
-  $('#id_tipo_afectacion_igv').on('select2:select', function(e) {
-
-    $("#impuesto").val('');
-    $("#impuesto_producto").val('');
-
-    var formData = new FormData();
-    formData.append('accion', 'obtener_impuesto_tipo_operacion')
-    formData.append('id_tipo_afectacion', $('#id_tipo_afectacion_igv').val());
-    response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
-
-    if (response) {
-      $("#impuesto").val(response['impuesto'])
-      $("#impuesto_producto").val(response['impuesto']);
-
-      precio_unitario_sin_igv = parseFloat($("#precio_unitario_con_igv").val() / (1 + ($("#impuesto_producto")
-        .val() / 100))).toFixed(2);
-      $("#precio_unitario_sin_igv").val(precio_unitario_sin_igv);
-
-
-      precio_unitario_mayor_sin_igv = parseFloat($("#precio_unitario_mayor_con_igv").val() / (1 + ($(
-        "#impuesto_producto").val() / 100))).toFixed(2);
-      $("#precio_unitario_mayor_sin_igv").val(precio_unitario_mayor_sin_igv);
-
-      precio_unitario_oferta_sin_igv = parseFloat($("#precio_unitario_oferta_con_igv").val() / (1 + ($(
-        "#impuesto_producto").val() / 100))).toFixed(2);
-      $("#precio_unitario_oferta_sin_igv").val(precio_unitario_oferta_sin_igv);
-    }
-
-    // $("#precio_unitario_con_igv").val('');
-    // $("#precio_unitario_mayor_con_igv").val('');
-    // $("#precio_unitario_oferta_con_igv").val('');
-    // $("#precio_unitario_sin_igv").val('');
-    // $("#precio_unitario_mayor_sin_igv").val('');
-    // $("#precio_unitario_oferta_sin_igv").val('');
-
-  });
-
-
 
   /* ======================================================================================
   A U M E N T A R /  D I S M I N U I R   S T O C K   A L   P R O D U C T O
@@ -663,6 +693,23 @@ $(document).ready(function() {
 
 
 }); //find de ready
+
+function calcularPrecioVenta() {
+
+  let precioCompra = parseFloat(document.getElementById('precio_compra').value);
+  let porcentaje = parseFloat(document.getElementById('porciento').value);
+
+  // Validar valores
+  if (isNaN(precioCompra) || isNaN(porcentaje)) {
+    document.getElementById('precio_venta').value = "";
+    return;
+  }
+  let ganancia = precioCompra * (porcentaje / 100);
+  let precioVenta = precioCompra + ganancia;
+  let pfinal = precioVenta.toFixed(2);
+
+  document.getElementById('precio_venta').value = pfinal;
+}
 
 
 /*===================================================================*/
@@ -793,7 +840,29 @@ function fnc_CargarDataTableInventario() {
     ],
     language: {
       //url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-      url:"//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+      //url:"//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+      "processing": "Procesando...",
+    "lengthMenu": "Mostrar _MENU_ registros",
+    "zeroRecords": "No se encontraron resultados",
+    "emptyTable": "Ningún dato disponible en esta tabla",
+    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+    "infoPostFix": "",
+    "search": "Buscar:",
+    "url": "",
+    "thousands": ",",
+    "loadingRecords": "Cargando...",
+    "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+    },
+    "aria": {
+        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+        "sortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
     }
   });
 
@@ -816,31 +885,40 @@ function fnc_ModalActualizarProducto(fila_actualizar) {
 
   $("#codigo_producto").prop('readonly', true);
 
-  $("#codigo_producto").val(data["codigo_producto"]);
-  $("#id_categoria").val(data['id_categoria']).change();
-  $("#descripcion").val(data['producto']);
-  $("#id_tipo_afectacion_igv").val(data['id_tipo_afectacion_igv']).change();
-  console.log($('#id_tipo_afectacion_igv').val());
-
+  $("#codigo_producto").val(data[3]);
+  $("#id_categoria").val(data[14]).change();
+  $("#id_subcategoria").val(data[15]).change();
+  $("#doc_producto").val(data[17]);
+  $("#descripcion").val(data[4]);
+  $("#precio_compra").val(data[8]);
+  $("#precio_venta").val(data[9]);
+  $("#precio_feria").val(data[12]);
+  $("#precio_oferta").val(data[13]);
+  $("#descuento_producto").val(data[10]);
+  $("#stock_producto").val(data[7]);
+  $("#id_unidad_medida").val(data[16]);
+  $("#id_proveedor").val(data[18]).change();
+  
   var formData = new FormData();
-  formData.append('accion', 'obtener_impuesto_tipo_operacion')
-  formData.append('id_tipo_afectacion', $('#id_tipo_afectacion_igv').val());
+  formData.append('accion', accion)
+  //formData.append('detalle_producto', $("#frm-datos-producto").serialize());
+
   response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
 
-  if (response) {
-    $("#impuesto").val(response['impuesto'] + ' %')
-    $("#impuesto_producto").val(response['impuesto']);
-  }
-  $("#id_unidad_medida").val(data['id_unidad_medida']).change();
-  $("#previewImg").attr("src", 'vistas/assets/imagenes/productos/' + (data['imagen'] ? data['imagen'] :
-  'no_image.jpg'));
-  $("#precio_unitario_con_igv").val(data['precio_unitario_con_igv']);
-  $("#precio_unitario_sin_igv").val(data['precio_unitario_sin_igv']);
-  $("#precio_unitario_mayor_con_igv").val(data['precio_unitario_mayor_con_igv']);
-  $("#precio_unitario_mayor_sin_igv").val(data['precio_unitario_mayor_sin_igv']);
-  $("#precio_unitario_oferta_con_igv").val(data['precio_unitario_oferta_con_igv']);
-  $("#precio_unitario_oferta_sin_igv").val(data['precio_unitario_oferta_sin_igv']);
-  $("#minimo_stock").val(data['minimo_stock']);
+  // if (response) {
+  //   $("#impuesto").val(response['impuesto'] + ' %')
+  //   $("#impuesto_producto").val(response['impuesto']);
+  // }
+  // $("#id_unidad_medida").val(data['id_unidad_medida']).change();
+  // $("#previewImg").attr("src", 'vistas/assets/imagenes/productos/' + (data['imagen'] ? data['imagen'] :
+  // 'no_image.jpg'));
+  // $("#precio_unitario_con_igv").val(data['precio_unitario_con_igv']);
+  // $("#precio_unitario_sin_igv").val(data['precio_unitario_sin_igv']);
+  // $("#precio_unitario_mayor_con_igv").val(data['precio_unitario_mayor_con_igv']);
+  // $("#precio_unitario_mayor_sin_igv").val(data['precio_unitario_mayor_sin_igv']);
+  // $("#precio_unitario_oferta_con_igv").val(data['precio_unitario_oferta_con_igv']);
+  // $("#precio_unitario_oferta_sin_igv").val(data['precio_unitario_oferta_sin_igv']);
+  // $("#minimo_stock").val(data['minimo_stock']);
 }
 
 function fnc_registrarProducto() {
@@ -851,7 +929,7 @@ function fnc_registrarProducto() {
   formData.append('detalle_producto', $("#frm-datos-producto").serialize());
   formData.append('accion', accion)
 
-  var imagen_valida = true;
+  //var imagen_valida = true;
 
   var forms = document.getElementsByClassName('needs-validation');
 
@@ -859,24 +937,24 @@ function fnc_registrarProducto() {
 
     if (form.checkValidity() === true) {
 
-      var file = $("#imagen").val();
+      // var file = $("#imagen").val();
 
-      if (file) {
+      // if (file) {
 
-        var ext = file.substring(file.lastIndexOf("."));
+      //   var ext = file.substring(file.lastIndexOf("."));
 
-        if (ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg" && ext != ".webp") {
-          mensajeToast('error', "La extensión " + ext + " no es una imagen válida");
-          imagen_valida = false;
-        }
+      //   if (ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg" && ext != ".webp") {
+      //     mensajeToast('error', "La extensión " + ext + " no es una imagen válida");
+      //     imagen_valida = false;
+      //   }
 
-        if (!imagen_valida) {
-          return;
-        }
+      //   if (!imagen_valida) {
+      //     return;
+      //   }
 
-        const inputImage = document.querySelector('#imagen');
-        formData.append('archivo[]', inputImage.files[0])
-      }
+      //   const inputImage = document.querySelector('#imagen');
+      //   formData.append('archivo[]', inputImage.files[0])
+      // }
 
       Swal.fire({
         title: 'Está seguro de registrar el producto?',
@@ -1157,21 +1235,20 @@ function fnc_limpiarFormulario() {
 
   $("#codigo_producto").val('');
   $("#id_categoria").val('');
+  $("#id_subcategoria").val('');
+  $("#doc_producto").val('');
   $("#descripcion").val('');
-  $("#id_tipo_afectacion_igv").val('');
-  $("#impuesto").val('');
-  $("#id_unidad_medida").val('');
-  $("#precio_unitario_con_igv").val('');
-  $("#precio_unitario_sin_igv").val('');
-  $("#precio_unitario_mayor_con_igv").val('');
-  $("#precio_unitario_mayor_sin_igv").val('');
-  $("#precio_unitario_oferta_con_igv").val('');
-  $("#precio_unitario_oferta_sin_igv").val('');
-  $("#minimo_stock").val('');
-  $("#imagen").val('')
-  $("#previewImg").attr("src", "vistas/assets/imagenes/no_image.jpg");
+  $("#precio_compra").val("");
+  $("#precio_venta").val("");
+  $("#precio_feria").val("");
+  $("#precio_oferta").val("");
+  $("#porciento").val("");
+  $("#descuento_producto").val("");
+  $("#stock_producto").val("");
+  $("#id_unidad_medida").val("");
+  $("#id_proveedor").val("");
 
-  fnc_cargarSelectCategorias();
+  fnc_SelectCategorias();
 }
 
 // PREVISUALIZAR LA IMAGEN
@@ -1191,15 +1268,99 @@ function previewFile(input) {
 }
 
 // CARGAR SELECT DE CATEGORIAS
-function fnc_cargarSelectCategorias() {
-  CargarSelect(null, $("#id_categoria_busqueda"), "--Todas las categorías--", "ajax/categorias.ajax.php",
-    'obtener_categorias', null, 1);
-  CargarSelect(null, $("#id_categoria"), "--Seleccione una categoría--", "ajax/categorias.ajax.php",
-    'obtener_categorias');
-  CargarSelect(null, $("#id_tipo_afectacion_igv"), "--Seleccione Tipo de Afectación IGV--", "ajax/productos.ajax.php",
-    'listar_tipo_afectacion');
-  CargarSelect(null, $("#id_unidad_medida"), "--Seleccione una Unidad/Medida--", "ajax/productos.ajax.php",
-    'listar_unidad_medida');
-  $('.select2').select2()
+// function fnc_cargarSelectCategorias() {
+//   CargarSelect(null, $("#id_categoria_busqueda"), "--Todas las categorías--", "ajax/categorias.ajax.php",
+//     'obtener_categorias', null, 1);
+//   CargarSelect(null, $("#id_categoria"), "--Seleccione una categoría--", "ajax/categorias.ajax.php",
+//     'obtener_categorias');
+//   $('.select2').select2()
+// }
+
+function fnc_SelectCategorias() {
+  //SOLICITU DE PARA CARGAR CATEGORIA
+  $.ajax({
+    url: "ajax/categorias.ajax.php",
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function(response) {
+
+      let options = "<option selected value='0'>Seleccionar una categoria</option>";
+
+      for (let index = 0; index < response.length; index++) {
+        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
+      }
+
+      $("#id_categoria").html(options);
+
+    }
+  });
 }
+
+function fnc_SelectProveedores() {
+    //SOLICITU DE PARA CARGAR PROVEEDOR
+  $.ajax({
+    url: "ajax/proveedores.ajax.php",
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function(response) {
+
+      let options = "<option selected value='0'>Seleccionar Proveedor</option>";
+
+      for (let index = 0; index < response.length; index++) {
+        options = options + '<option value=' + response[index][0] + '>' + response[index][1] + '</option>';
+      }
+
+      $("#id_proveedor").html(options);
+
+    }
+  });
+}
+
+function fnc_SelectSubCategorias() {
+//SOLICITUDE PARA CARGAR SUBCATEGORIAS
+  $("#id_categoria").change(function() {
+
+    let categoriaId = $(this).val();
+    //alert(id_categoria);
+    if (categoriaId) {
+      // Habilitar y limpiar subcategorías
+      $('#id_subcategoria').empty().append('<option value="">Cargando...</option>').prop('disabled', false);
+
+      // Solicitud AJAX
+      $.ajax({
+        url: 'ajax/get_subcategories.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          categoria_id: categoriaId
+        },
+        success: function(data) {
+          $('#id_subcategoria').empty();
+          if (data.length > 0) {
+            $('#id_subcategoria').append('<option value="">Seleccione una subcategoría</option>');
+            $.each(data, function(key, value) {
+              $('#id_subcategoria').append('<option value="' + value.subcategoria_id + '">' + value
+                .nombre +
+                '</option>');
+            });
+          } else {
+            $('#id_subcategoria').append('<option value="">No hay subcategorías disponibles</option>');
+          }
+        },
+        error: function() {
+          $('#id_subcategoria').empty().append('<option value="">Error al cargar subcategorías</option>');
+        }
+      });
+    } else {
+      $('#id_subcategoria').empty().append('<option value="">Primero seleccione una categoría</option>').prop(
+        'disabled', true);
+    }
+
+  })
+}
+
 </script>

@@ -312,72 +312,53 @@ class ProductosModelo
 
             $dbh = Conexion::conectar();
 
-            $fecha = date('Y-m-d');
-            $costo_total_producto = 0;
 
             $stmt = $dbh->prepare("INSERT INTO PRODUCTOS(codigo_producto, 
-                                                        id_categoria,
-                                                        descripcion, 
-                                                        id_tipo_afectacion_igv, 
-                                                        id_unidad_medida,
-                                                        precio_unitario_con_igv,
-                                                        precio_unitario_sin_igv, 
-                                                        precio_unitario_mayor_con_igv,
-                                                        precio_unitario_mayor_sin_igv,
-                                                        precio_unitario_oferta_con_igv,
-                                                        precio_unitario_oferta_sin_igv,
-                                                        imagen,
-                                                        minimo_stock,
-                                                        fecha_creacion,
-                                                        fecha_actualizacion) 
-                                                VALUES (?,?,upper(?),?,?,?,?,?,?,?,?,?,?,?,?)");
+                                                        categoria_id,
+                                                        subcategoria_id,
+                                                        nombre, 
+                                                        unidad_medida,
+                                                        stock,
+                                                        precio_venta, 
+                                                        precio_compra,
+                                                        documento,
+                                                        descuento,
+                                                        proveedor_id,
+                                                        precio_feria,
+                                                        precio_oferta) 
+                                                VALUES (?,?,?,upper(?),upper(?),?,?,?,upper(?),?,?,?,?)");
 
             $dbh->beginTransaction();
             $stmt->execute(array(
                 $array_datos_producto["codigo_producto"],
                 $array_datos_producto["id_categoria"],
+                $array_datos_producto["id_subcategoria"],
                 $array_datos_producto["descripcion"],
-                $array_datos_producto["id_tipo_afectacion_igv"],
                 $array_datos_producto["id_unidad_medida"],
-                $array_datos_producto["precio_unitario_con_igv"],
-                $array_datos_producto["precio_unitario_sin_igv"],
-                $array_datos_producto["precio_unitario_mayor_con_igv"],
-                $array_datos_producto["precio_unitario_mayor_sin_igv"],
-                $array_datos_producto["precio_unitario_oferta_con_igv"],
-                $array_datos_producto["precio_unitario_oferta_sin_igv"],
-                $imagen["nuevoNombre"] ?? 'no_image.jpg',
-                $array_datos_producto["minimo_stock"],
-                $fecha,
-                $fecha
+                $array_datos_producto["stock_producto"],
+                $array_datos_producto["precio_venta"],
+                $array_datos_producto["precio_compra"],
+                $array_datos_producto["doc_producto"],
+                $array_datos_producto["descuento_producto"],
+                $array_datos_producto["id_proveedor"],
+                $array_datos_producto["precio_feria"],
+                $array_datos_producto["precio_oferta"]
             ));
             $dbh->commit();
 
-            //GUARDAMOS LA IMAGEN EN LA CARPETA
-            if ($imagen) {
-                $guardarImagen = new ProductosModelo();
-                $guardarImagen->guardarImagen($imagen["folder"], $imagen["ubicacionTemporal"], $imagen["nuevoNombre"]);
-            }
-
-            $concepto = 'INVENTARIO INICIAL';
-            $comprobante = '';
 
             //REGISTRAMOS KARDEX - INVENTARIO INICIAL
-            $stmt = $dbh->prepare("call prc_registrar_kardex_existencias(?,?,?,?,?,?);");
+            // $stmt = $dbh->prepare("call prc_registrar_kardex_existencias(?,?,?,?,?,?);");
 
-            $dbh->beginTransaction();
-            $stmt->execute(array(
-                $array_datos_producto["codigo_producto"],
-                $concepto,
-                $comprobante,
-                0,
-                0,
-                $costo_total_producto
-            ));
+            // $dbh->beginTransaction();
+            // $stmt->execute(array(
+            //     $array_datos_producto["codigo_producto"]
+            // ));
 
-            $dbh->commit();
+           // $dbh->commit();
 
             $respuesta["tipo_msj"] = "success";
-            $respuesta["msj"] = "Se registró el producto correctamente";
+            $respuesta["msj"] = "Se registró el producto correctamente ok!!!";
         } catch (Exception $e) {
             $dbh->rollBack();
             $respuesta["tipo_msj"] = "error";
@@ -393,11 +374,11 @@ class ProductosModelo
     static public function mdlActualizarProducto($array_datos_producto, $imagen = null)
     {
 
-        $stmt = Conexion::conectar()->prepare("select imagen from productos where codigo_producto = :codigo_producto");
-        $stmt->bindParam(":codigo_producto", $array_datos_producto["codigo_producto"], PDO::PARAM_STR);
-        $stmt->execute();
+        // $stmt = Conexion::conectar()->prepare("select imagen from productos where codigo_producto = :codigo_producto");
+        // $stmt->bindParam(":codigo_producto", $array_datos_producto["codigo_producto"], PDO::PARAM_STR);
+        // $stmt->execute();
 
-        $imagen_actual = $stmt->fetch()[0];
+        // $imagen_actual = $stmt->fetch()[0];
 
         try {
 
@@ -408,19 +389,18 @@ class ProductosModelo
             $stmt = $dbh->prepare(" UPDATE  
                                         productos
                                     SET 
-                                    id_categoria = ?,
-                                    descripcion = ?, 
-                                    id_tipo_afectacion_igv = ?, 
-                                    id_unidad_medida = ?,
-                                    precio_unitario_con_igv = ?,
-                                    precio_unitario_sin_igv = ?, 
-                                    precio_unitario_mayor_con_igv = ?,
-                                    precio_unitario_mayor_sin_igv = ?,
-                                    precio_unitario_oferta_con_igv = ?,
-                                    precio_unitario_oferta_sin_igv = ?,
-                                    imagen = ?,
-                                    minimo_stock = ?, 
-                                    fecha_actualizacion = ?
+                                        categoria_id = ?,
+                                        subcategoria_id = ?,
+                                        nombre = upper(?), 
+                                        unidad_medida = upper(?),
+                                        stock = ?,
+                                        precio_venta = ?, 
+                                        precio_compra = ?,
+                                        documento = upper(?),
+                                        descuento = ?,
+                                        proveedor_id = ?,
+                                        precio_feria = ?,
+                                        precio_oferta = ?
                                     WHERE 
                                         codigo_producto = ?");
 
@@ -428,28 +408,27 @@ class ProductosModelo
             $stmt->execute(array(
 
                 $array_datos_producto["id_categoria"],
+                $array_datos_producto["id_subcategoria"],
                 $array_datos_producto["descripcion"],
-                $array_datos_producto["id_tipo_afectacion_igv"],
                 $array_datos_producto["id_unidad_medida"],
-                $array_datos_producto["precio_unitario_con_igv"],
-                $array_datos_producto["precio_unitario_sin_igv"],
-                $array_datos_producto["precio_unitario_mayor_con_igv"],
-                $array_datos_producto["precio_unitario_mayor_sin_igv"],
-                $array_datos_producto["precio_unitario_oferta_con_igv"],
-                $array_datos_producto["precio_unitario_oferta_sin_igv"],
-                $imagen["nuevoNombre"] ?? $imagen_actual,
-                $array_datos_producto["minimo_stock"],
-                $fecha_actualizacion,
-                $array_datos_producto["codigo_producto"],
+                $array_datos_producto["stock_producto"],
+                $array_datos_producto["precio_venta"],
+                $array_datos_producto["precio_compra"],
+                $array_datos_producto["doc_producto"],
+                $array_datos_producto["descuento_producto"],
+                $array_datos_producto["id_proveedor"],
+                $array_datos_producto["precio_feria"],
+                $array_datos_producto["precio_oferta"],
+                $array_datos_producto["codigo_producto"]
             ));
 
             $dbh->commit();
 
             //GUARDAMOS LA IMAGEN EN LA CARPETA
-            if ($imagen) {
-                $guardarImagen = new ProductosModelo();
-                $guardarImagen->guardarImagen($imagen["folder"], $imagen["ubicacionTemporal"], $imagen["nuevoNombre"]);
-            }
+            // if ($imagen) {
+            //     $guardarImagen = new ProductosModelo();
+            //     $guardarImagen->guardarImagen($imagen["folder"], $imagen["ubicacionTemporal"], $imagen["nuevoNombre"]);
+            // }
 
 
             $respuesta["tipo_msj"] = "success";

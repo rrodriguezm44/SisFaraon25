@@ -108,6 +108,7 @@
 
 <!-- VENTANA MODAL PARA REGISTRAR PRODUCTOS -->
 <div class="modal fade" id="mdlGestionarProducto" role="dialog">
+
   <div class="modal-dialog modal-lg" role="document">
     <!-- contenido del modal -->
     <div class="modal-content">
@@ -127,6 +128,7 @@
 
           <!-- Abrimos una fila -->
           <div class="row">
+
             <!-- CODIGO DE BARRAS -->
             <div class="col-12 col-lg-6">
 
@@ -159,6 +161,7 @@
               </div>
 
             </div>
+
             <!-- SUB-CATEGORIAS -->
             <div class="col-12 col-lg-6">
 
@@ -175,6 +178,7 @@
               </div>
 
             </div>
+
             <!-- DOCUMENTO COMPRA-->
             <div class="col-12 col-lg-6">
 
@@ -205,6 +209,7 @@
               </div>
 
             </div>
+            
             <!-- PRECIO DE COMPRA -->
             <div class="col-12 col-lg-4">
 
@@ -623,6 +628,9 @@ $(document).ready(function() {
     $("#mdlGestionarProducto").modal("show");
 
     let data = table.row($(this).parents('tr')).data();
+
+    console.log(data);
+
 
     $("#codigo_producto").val(data[2]);
     $("#descripcion").val(data[3]);

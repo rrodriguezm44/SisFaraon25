@@ -164,27 +164,27 @@ function validateJS(event, type) {
         
     }
 
-    if (type == "codigo_producto") {
+    // if (type == "codigo_producto") {
 
-        var formData = new FormData();
+    //     var formData = new FormData();
 
-        formData.append('accion', 'validar_codigo_producto');
-        formData.append('codigo_producto', event.target.value);
-        response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
+    //     formData.append('accion', 'validar_codigo_producto');
+    //     formData.append('codigo_producto', event.target.value);
+    //     response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
 
-        if(response['existe'] > 0){
+    //     if(response['existe'] > 0){
 
-            $(event.target).parent().addClass("was-validated");
+    //         $(event.target).parent().addClass("was-validated");
 
-            $(event.target).parent().children(".invalid-feedback").html("El código ya fue registrado");
+    //         $(event.target).parent().children(".invalid-feedback").html("El código ya fue registrado");
     
-            event.target.value = "";
-            event.target.focus();
-            return;
-        }
+    //         event.target.value = "";
+    //         event.target.focus();
+    //         return;
+    //     }
 
         
-    }
+    // }
 
     if (type == "nro_documento") {
         
