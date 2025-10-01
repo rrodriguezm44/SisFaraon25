@@ -35,6 +35,7 @@
               <th>Telefono</th>
               <th>Direccion</th>
               <th>Estado</th>
+              <th>Cat.</th>
               <th>Opciones</th>
               <th>Titular</th>
               <th>Tipo</th>
@@ -48,7 +49,7 @@
     </div>
 
     <!-- DATOS PRINCIPALES DE CLIENTES -->
-    <div class="col-md-3">
+    <div class="col-md-3" id="divDatosClientes">
       <div class="card card-info card-outline shadow">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-edit"></i> Registro/Modificacion <span>Clientes</span></h3>
@@ -156,36 +157,25 @@
 
                 </div>
               </div>
-              <!-- <div class="col-md-12">
-                  <div class="form-group mb-2">
 
-                    <label class="col-form-label" for="itpNumeroNit">
-                      <i class="fas fa-dumpster f-6"></i>
-                      <span class="small">Numero de NIT</span><span class="text-danger">*</span>
-                    </label>
+              <!-- SELECCIONAR CATEGORIA -->
+              <div class="form-group mb-2">
 
-                    <input type="text" class="form-control form-control-sm" id="itpNumeroNit" name="itpNumeroNit"
-                      placeholder="Ingrese la Numero de NIT" required>
+                <label class="col-form-label" for="iptSelCategoria">
+                  <i class="fas fa-check fs-6"></i>
+                  <span class="small">Categoria</span><span class="text-danger">*</span>
+                </label>
 
-                    <div class="invalid-feedback">Debe ingresar el NIT</div>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="iptSelCategoria" required>
+                  <option value="" selected="true">Seleccione Categoria</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
 
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group mb-2">
+                <div class="invalid-feedback">Debe ingresar Categoria </div>
 
-                    <label class="col-form-label" for="iptEmail">
-                      <i class="fas fa-dumpster f-6"></i>
-                      <span class="small">Email</span><span class="text-danger">*</span>
-                    </label>
-
-                    <input type="text" class="form-control form-control-sm" id="iptEmail" name="iptEmail"
-                      placeholder="Ingrese el Email" onKeyUp="javascript:this.value=this.value.toLowerCase();" required>
-
-                    <div class="invalid-feedback">Debe ingresar el Email</div>
-
-                  </div>
-                </div> -->
+              </div>
 
             </div>
 
@@ -266,10 +256,6 @@
           className: "text-center"
         },
         {
-          targets: 7,
-          visible: false
-        },
-        {
           targets: 8,
           visible: false
         },
@@ -278,7 +264,11 @@
           visible: false
         },
         {
-          targets: 6,
+          targets: 10,
+          visible: false
+        },
+        {
+          targets: 7,
           sortable: false,
           render: function(data, type, full, meta) {
             return "<center>" +
@@ -340,6 +330,7 @@
         $("#iptDireccion").val("");
         $("#iptTipoEmpresa").val("");
         $("#iptFecha").val("");
+        $("#iptSelCategoria").val("");
 
       } else {
 
@@ -348,12 +339,13 @@
         $(this).parents('tr').addClass('selected')
 
         idCliente = data[0];
-        $("#iptRazonSocial").val(data[7]);
+        $("#iptRazonSocial").val(data[8]);
         $("#iptNombreEmpresa").val(data[1]);
         $("#iptNumeroFono").val(data[3]);
         $("#iptDireccion").val(data[4]);
         $("#iptTipoEmpresa").val(data[8]);
         $("#iptFecha").val(data[9]);
+        $("#iptSelCategoria").val(data[6]);
 
       }
 
@@ -409,6 +401,7 @@
           telefono = $("#iptNumeroFono").val();
           direccion = $("#iptDireccion").val();
           tipoEmpresa = $("#iptTipoEmpresa").val();
+          categoria = $("#iptSelCategoria").val();
           //fechaAct = date("Y-m-d");
 
           let datos = new FormData();
@@ -419,6 +412,7 @@
           datos.append("telefono", telefono);
           datos.append("direccion", direccion);
           datos.append("tipoEmpresa", tipoEmpresa);
+          datos.append("categoria", categoria);
           //datos.append("fechaRegistro", fechaAct);
 
           Swal.fire({
@@ -456,6 +450,7 @@
                   $("#iptDireccion").val("");
                   $("#iptTipoEmpresa").val("");
                   $("#iptFecha").val("");
+                  $("#iptSelCategoria").val("");
 
                   tableClientes.ajax.reload();
                   $(".needs-validation").removeClass("was-validated");

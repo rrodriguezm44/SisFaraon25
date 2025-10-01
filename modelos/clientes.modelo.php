@@ -18,6 +18,7 @@ class ModeloClientes
                                               WHEN estado = 2 THEN 'desactivo'
                                               ELSE 'Desconocido'
                                             END as estado,
+                                            categoria,
                                             '' as opciones,
                                             nombre,
                                             tipo_empresa,
@@ -44,7 +45,7 @@ class ModeloClientes
     return $resultado;
   }
 
-  static public function mdlGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa)
+  static public function mdlGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa, $categoria)
   {
 
     //$date = null;
@@ -53,8 +54,8 @@ class ModeloClientes
 
       $date = date("Y-m-d");
 
-      $stmt = Conexion::conectar()->prepare("INSERT INTO clientes (nombre,nombre_empresa,telefono,direccion,tipo_empresa,fecha_creacion) 
-                                                    VALUES (:razonSocial, :nombreEmpresa, :telefono, :direccion, :tipoEmpresa, :fechaRegistro)");
+      $stmt = Conexion::conectar()->prepare("INSERT INTO clientes (nombre,nombre_empresa,telefono,direccion,tipo_empresa,fecha_creacion,categoria) 
+                                                    VALUES (:razonSocial, :nombreEmpresa, :telefono, :direccion, :tipoEmpresa, :fechaRegistro, :categoria)");
 
       $stmt->bindParam(":razonSocial", $razonSocial, PDO::PARAM_STR);
       $stmt->bindParam(":nombreEmpresa", $nombreEmpresa, PDO::PARAM_STR);
@@ -62,6 +63,7 @@ class ModeloClientes
       $stmt->bindParam(":direccion", $direccion, PDO::PARAM_STR);
       $stmt->bindParam(":tipoEmpresa", $tipoEmpresa, PDO::PARAM_STR);
       $stmt->bindParam(":fechaRegistro", $date, PDO::PARAM_STR);
+      $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
 
       if ($stmt->execute()) {
         $resultado = "Se registró el cliente correctamente. ";
@@ -79,7 +81,8 @@ class ModeloClientes
                                             telefono = :telefono, 
                                             direccion = :direccion, 
                                             tipo_empresa = :tipoEmpresa, 
-                                            fecha_creacion = :fechaRegistro 
+                                            fecha_creacion = :fechaRegistro,
+                                            categoria = :categoria
                                             WHERE cliente_id = :idCliente");
 
       $stmt->bindParam(":idCliente", $idCliente, PDO::PARAM_STR);
@@ -89,6 +92,7 @@ class ModeloClientes
       $stmt->bindParam(":direccion", $direccion, PDO::PARAM_STR);
       $stmt->bindParam(":tipoEmpresa", $tipoEmpresa, PDO::PARAM_STR);
       $stmt->bindParam(":fechaRegistro", $date, PDO::PARAM_STR);
+      $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
 
       if ($stmt->execute()) {
         $resultado = "Se actualizó el cliente correctamente. ";

@@ -18,10 +18,10 @@ class ClientesControlador
     return $respuesta;
   }
 
-  static public function ctrGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa)
+  static public function ctrGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa, $categoria)
   {
 
-    $guardarCliente = ModeloClientes::mdlGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa);
+    $guardarCliente = ModeloClientes::mdlGuardarCliente($accion, $idCliente, $razonSocial, $nombreEmpresa, $telefono, $direccion, $tipoEmpresa, $categoria);
     return $guardarCliente;
   }
 }

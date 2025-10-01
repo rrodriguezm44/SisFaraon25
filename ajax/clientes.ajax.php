@@ -11,7 +11,7 @@ class AjaxClientes
   public $telefono;
   public $direccion;
   public $tipoEmpresa;
-  //public $fechaRegistro;
+  public $categoria;
   public function ajaxListarClientes()
   {
 
@@ -31,7 +31,7 @@ class AjaxClientes
   public function ajaxGuardarCliente($accion)
   {
 
-    $guardarClientes = ClientesControlador::ctrGuardarCliente($accion, $this->idCliente, $this->razonSocial, $this->nombreEmpresa, $this->telefono, $this->direccion, $this->tipoEmpresa);
+    $guardarClientes = ClientesControlador::ctrGuardarCliente($accion, $this->idCliente, $this->razonSocial, $this->nombreEmpresa, $this->telefono, $this->direccion, $this->tipoEmpresa, $this->categoria);
 
     echo json_encode($guardarClientes, JSON_UNESCAPED_UNICODE);
   }
@@ -46,7 +46,7 @@ if (isset($_POST['idCliente']) && $_POST['idCliente'] > 0) { //EDITAR
   $editarCliente->telefono = $_POST['telefono'];
   $editarCliente->direccion = $_POST['direccion'];
   $editarCliente->tipoEmpresa = $_POST['tipoEmpresa'];
-  //$editarCliente->fechaRegistro = $_POST['fechaRegistro'];
+  $editarCliente->categoria = $_POST['categoria'];
 
   $editarCliente->ajaxGuardarCliente(0);
 } else if (isset($_POST['idCliente']) && $_POST['idCliente'] == 0) { //REGISTRAR
@@ -58,7 +58,7 @@ if (isset($_POST['idCliente']) && $_POST['idCliente'] > 0) { //EDITAR
   $registrarCliente->telefono = $_POST['telefono'];
   $registrarCliente->direccion = $_POST['direccion'];
   $registrarCliente->tipoEmpresa = $_POST['tipoEmpresa'];
-  //$registrarCliente->fechaRegistro = $_POST['fechaRegistro'];
+  $registrarCliente->categoria = $_POST['categoria'];
 
   $registrarCliente->ajaxGuardarCliente(1);
 } else if (isset($_POST['accion']) && $_POST['accion'] == 2) { //borrar clientes
